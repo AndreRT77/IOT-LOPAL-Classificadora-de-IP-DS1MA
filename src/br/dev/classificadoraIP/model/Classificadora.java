@@ -14,7 +14,7 @@ public class Classificadora {
     private String mascaraDecimal;
     private String ipClasse;
     private String subRede;
-    private double ipsubClasse;
+    private int ipsubClasse;
     private List<String> listaSubRede = new ArrayList<>();
 
     public String getIp() {
@@ -105,17 +105,17 @@ public class Classificadora {
         this.quartoOcteto = quartoOcteto;
     }
 
-    public double getSubClasse() {
+    public int getSubClasse() {
         if (cidr > 32) {
-            System.out.println("Cidr maior que 32 não pode ser utilizado! Por favor insira um número menor ou igual a 32");
-        } else if (cidr < 30) {
-            ipsubClasse = Math.pow(2, 32 - cidr) - 2;
+            System.out.println("Insira um cidr menor que 32");
+        } else if (cidr <= 30) {
+            ipsubClasse = (int) Math.pow(2, 32 - cidr ) -2 ;
         } else {
-            ipsubClasse = Math.pow(2, 32 - cidr);
+            ipsubClasse = (int) Math.pow(2, 32 - cidr);
         }
-        
         return ipsubClasse;
     }
+
 
     public int getSubRedes() {
         int cidrBase = 0;
@@ -137,6 +137,7 @@ public class Classificadora {
         return (int) Math.pow(2, cidr - cidrBase);
     }
 
+    
     private StringBuilder gerarMascaraBin(int cidr) {
         StringBuilder mascaraBinaria = new StringBuilder();
         for (int i = 0; i < 32; i++) {
@@ -195,9 +196,9 @@ public class Classificadora {
             int numeroDeRede = (int) Math.pow(2, bitsAtivos);
             int numeroDeHost = ((int) Math.pow(2, bitsInativos)) - 2;
             
-            int[] binario = {128, 64, 32, 16, 8, 4, 2, 1};
+            int[] binarop = {128, 64, 32, 16, 8, 4, 2, 1};
             
-            subRede = "Terá " +String.valueOf(numeroDeRede) + " Sub-Redes!";
+            subRede = "Terá " +String.valueOf(numeroDeRede) + " Sub-Redes";
             
             int valorIncrementoHost = 0;
             String[] octetos = ip.split("\\.");
@@ -236,6 +237,10 @@ public class Classificadora {
         for (int i = 0; i < quantidadeSubRedes; i++) {
             int inicio = redeBase + (i * bloco);
             int fim = inicio + bloco - 1;
+            
+            if (getSubRedes() == 0) {
+                return new ArrayList<>();
+            }
 
             if (fim > ipMaximo) fim = ipMaximo;
 
@@ -255,22 +260,28 @@ public class Classificadora {
     }
 
 
-
+    
+    private String formatarMascaraBinaria(String bin) {
+        return bin.substring(0, 8) + "." + bin.substring(8, 16) + "." + bin.substring(16, 24) + "." + bin.substring(24, 32);
+    }
 
     public void mostrarDados() {
         
         mascaraBinaria = gerarMascaraBin(cidr).toString();
         mascaraDecimal = gerarMascaraDecimal(new StringBuilder(mascaraBinaria));
         ipClasse = getIpClasse();
+        
+        
+
     
         System.out.println("------------------------------------");
         System.out.println("IP informado: " + primeiroOcteto + "." + segundoOcteto + "." + terceiroOcteto + "." + quartoOcteto + "/" + cidr);
         System.out.println("Primeiro octeto: " + primeiroOcteto);
         System.out.println("Classe do IP: " + "Classe " + ipClasse);
-        System.out.println("Mascara binaria: " + mascaraBinaria);
+        System.out.println("Mascara binaria: " + formatarMascaraBinaria(mascaraBinaria));
         System.out.println("Mascara decimal: " + mascaraDecimal);
         System.out.println("IPs por sub-rede com /" + cidr + ": " + getSubClasse() + " IPs disponiveis");
-        System.out.println("Quantidade de sub-redes poss�veis: " + getSubRedes());
+        System.out.println("Quantidade de sub-redes possíveis: " + getSubRedes());
         System.out.println("------------------------------------");
     }
 }

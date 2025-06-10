@@ -13,9 +13,13 @@ public class CriarTela {
     private JLabel labelCIDR;
     private JLabel labelErro;
     private JTextField textOct1;
+    private JLabel labelponto1;
     private JTextField textOct2;
+    private JLabel labelponto2;
     private JTextField textOct3;
+    private JLabel labelponto3;
     private JTextField textOct4;
+    private JLabel labelbarra;
     private JTextField textCIDR;
     private JButton buttonCalcular;
     private JButton buttonApagar;
@@ -42,10 +46,34 @@ public class CriarTela {
         labelIP.setFont(fonteTitulo);
         labelIP.setBounds(30, 20, 200, 30);
 
-        textOct1 = new JTextField(); textOct1.setBounds(30, 60, 50, 35);
-        textOct2 = new JTextField(); textOct2.setBounds(90, 60, 50, 35);
-        textOct3 = new JTextField(); textOct3.setBounds(150, 60, 50, 35);
-        textOct4 = new JTextField(); textOct4.setBounds(210, 60, 50, 35);
+        textOct1 = new JTextField(); 
+        textOct1.setBounds(30, 60, 50, 35);
+        labelponto1 = new JLabel(); 
+		labelponto1.setText(".");
+        labelponto1.setBounds(80, 60, 50, 35);
+		labelponto1.setFont(new Font("Arial", Font.PLAIN, 30));
+
+        textOct2 = new JTextField(); 
+        textOct2.setBounds(90, 60, 50, 35);
+        labelponto2 = new JLabel(); 
+		labelponto2.setText(".");
+        labelponto2.setBounds(140, 60, 50, 35);
+		labelponto2.setFont(new Font("Arial", Font.PLAIN, 30));
+		
+        textOct3 = new JTextField(); 
+        textOct3.setBounds(150, 60, 50, 35);
+        labelponto3 = new JLabel(); 
+		labelponto3.setText(".");
+        labelponto3.setBounds(200, 60, 50, 35);
+		labelponto3.setFont(new Font("Arial", Font.PLAIN, 30));
+		
+        textOct4 = new JTextField(); 
+        textOct4.setBounds(210, 60, 50, 35);
+        
+        labelbarra = new JLabel();
+		labelbarra.setText("/");
+		labelbarra.setBounds(270, 60, 20, 40);
+		labelbarra.setFont(new Font("Arial", Font.PLAIN, 30));
 
         labelCIDR = new JLabel("DIGITE O CIDR AQUI:");
         labelCIDR.setFont(fonteTitulo);
@@ -54,11 +82,19 @@ public class CriarTela {
         textCIDR = new JTextField(); textCIDR.setBounds(300, 60, 50, 35);
 
         buttonCalcular = new JButton("Classificar");
-        buttonCalcular.setBounds(30, 110, 150, 40);
+        buttonCalcular.setBounds(30, 110, 150, 30);
+        buttonCalcular.setBackground(Color.green);
+        buttonCalcular.setContentAreaFilled(false);
+        buttonCalcular.setOpaque(true);
+        buttonCalcular.setBackground(Color.green);
         buttonCalcular.setFont(fontePadrao);
 
         buttonApagar = new JButton("Limpar");
-        buttonApagar.setBounds(200, 110, 150, 40);
+        buttonApagar.setBounds(200, 110, 150, 30);
+        buttonApagar.setBackground(Color.RED);
+        buttonApagar.setContentAreaFilled(false);
+        buttonApagar.setOpaque(true);
+        buttonApagar.setBackground(Color.RED);
         buttonApagar.setFont(fontePadrao);
 
         areaResultado = new JTextArea();
@@ -140,9 +176,13 @@ public class CriarTela {
 
         container.add(labelIP);
         container.add(textOct1);
+        container.add(labelponto1);
         container.add(textOct2);
+        container.add(labelponto2);
         container.add(textOct3);
+        container.add(labelponto3);
         container.add(textOct4);
+        container.add(labelbarra);
         container.add(labelCIDR);
         container.add(textCIDR);
         container.add(buttonCalcular);
