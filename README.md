@@ -1,6 +1,6 @@
 "# Classificadora-IP-DS1MA" 
 
-![{BF804A89-F652-4FE5-85F5-CD3C744D1ED1}](https://github.com/user-attachments/assets/8c640cbb-578f-49e7-8cc3-1c2ac436a696)
+![image](https://github.com/user-attachments/assets/f0b1c1d4-0006-4b67-82e8-706a7d4fcc89)
 
 Aplicação desktop desenvolvida em Java orientado a objetos com interface gráfica, que permite classificar um endereço IP com base no CIDR fornecido. A ferramenta apresenta informações como classe do IP, máscara binária e decimal, quantidade de IPs disponíveis, quantidade de sub-redes e detalhes sobre cada sub-rede .
 
