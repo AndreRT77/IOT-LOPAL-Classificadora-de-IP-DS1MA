@@ -74,7 +74,7 @@ public class Classificadora {
         else if (primeiroOctetoInt >= 240 && primeiroOctetoInt <= 255)
             ipClasse = "E";
         else if (primeiroOctetoInt <1 || primeiroOctetoInt > 255)
-            throw new IllegalArgumentException("Não coloque um numero menor que 1 ou maior que 255! por favor coloque um número valido.");
+            throw new IllegalArgumentException("Coloque um valor entre 1 a 255");
         return ipClasse;
     }
 

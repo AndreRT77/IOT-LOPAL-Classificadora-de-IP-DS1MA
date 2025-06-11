@@ -1,3 +1,5 @@
+
+
 package br.dev.classificadoraIP.gui;
 
 import javax.swing.*;
@@ -24,6 +26,11 @@ public class CriarTela {
     private JButton buttonCalcular;
     private JButton buttonApagar;
     private JTextArea areaResultado;
+    private JLabel labelClasse;
+    private JLabel labelMascaraBin;
+    private JLabel labelMascaraDec;
+    private JLabel labelIpsPorSubrede;
+    private JLabel labelQtdSubredes;
     private JScrollPane scrollResultado;
 
     public void criarTela() {
@@ -102,9 +109,30 @@ public class CriarTela {
         areaResultado.setFont(fonteResultado);
         areaResultado.setLineWrap(true);
         areaResultado.setWrapStyleWord(true);
+        
+        labelClasse = new JLabel("IP Classe: ");
+        labelClasse.setFont(fontePadrao);
+        labelClasse.setBounds(30, 160, 540, 25);
+
+        labelMascaraBin = new JLabel("Máscara Binária: ");
+        labelMascaraBin.setFont(fontePadrao);
+        labelMascaraBin.setBounds(30, 190, 540, 25);
+
+        labelMascaraDec = new JLabel("Máscara Decimal: ");
+        labelMascaraDec.setFont(fontePadrao);
+        labelMascaraDec.setBounds(30, 220, 540, 25);
+
+        labelIpsPorSubrede = new JLabel("IPs por sub-rede: ");
+        labelIpsPorSubrede.setFont(fontePadrao);
+        labelIpsPorSubrede.setBounds(30, 250, 540, 25);
+
+        labelQtdSubredes = new JLabel("Quantidade de sub-redes: ");
+        labelQtdSubredes.setFont(fontePadrao);
+        labelQtdSubredes.setBounds(30, 280, 540, 25);
+
 
         scrollResultado = new JScrollPane(areaResultado);
-        scrollResultado.setBounds(30, 170, 540, 430);
+        scrollResultado.setBounds(30, 310, 540, 290);
 
         labelErro = new JLabel("Erro! Utilize apenas números válidos.");
         labelErro.setForeground(new Color(220, 20, 60));
@@ -140,19 +168,22 @@ public class CriarTela {
                     ip.setCidr(cidr);
                     ip.setIp(oct1 + "." + oct2 + "." + oct3 + "." + oct4);
                     ip.mostrarDados();
+                    
+                    String mascaraBin = ip.getMascaraBinaria();
+                    String mascaraBinFormatada = mascaraBin.replaceAll("(.{8})(?=.)", "$1.");
 
-                    StringBuilder resultado = new StringBuilder();
-                    resultado.append("IP Classe: ").append(ip.getIpClasse()).append("\n");
-                    resultado.append("Máscara Binária: ").append(ip.getMascaraBinaria()).append("\n");
-                    resultado.append("Máscara Decimal: ").append(ip.getMascaraDecimal()).append("\n");
-                    resultado.append("IPs por sub-rede: ").append(ip.getSubClasse()).append("\n");
-                    resultado.append("Quantidade de sub-redes: ").append(ip.getSubRedes()).append("\n\n");
+                    labelClasse.setText("IP Classe: " + ip.getIpClasse());
+                    labelMascaraBin.setText("Máscara Binária: " + mascaraBinFormatada);
+                    labelMascaraDec.setText("Máscara Decimal: " + ip.getMascaraDecimal());
+                    labelIpsPorSubrede.setText("IPs por sub-rede: " + ip.getSubClasse());
+                    labelQtdSubredes.setText("Quantidade de sub-redes: " + ip.getSubRedes());
 
+                    StringBuilder subRedesTexto = new StringBuilder();
                     for (String linha : ip.listarSubRedes()) {
-                        resultado.append(linha).append("\n");
+                        subRedesTexto.append(linha).append("\n");
                     }
+                    areaResultado.setText(subRedesTexto.toString());
 
-                    areaResultado.setText(resultado.toString());
                 } catch (Exception ex) {
                     areaResultado.setText("");
                     labelErro.setVisible(true);
@@ -171,6 +202,12 @@ public class CriarTela {
                 textCIDR.setText("");
                 areaResultado.setText("");
                 labelErro.setVisible(false);
+                labelClasse.setText("IP Classe: ");
+                labelMascaraBin.setText("Máscara Binária: ");
+                labelMascaraDec.setText("Máscara Decimal: ");
+                labelIpsPorSubrede.setText("IPs por sub-rede: ");
+                labelQtdSubredes.setText("Quantidade de sub-redes: ");
+
             }
         });
 
@@ -189,6 +226,12 @@ public class CriarTela {
         container.add(buttonApagar);
         container.add(scrollResultado);
         container.add(labelErro);
+        container.add(labelClasse);
+        container.add(labelMascaraBin);
+        container.add(labelMascaraDec);
+        container.add(labelIpsPorSubrede);
+        container.add(labelQtdSubredes);
+
 
         tela.setVisible(true);
     }
